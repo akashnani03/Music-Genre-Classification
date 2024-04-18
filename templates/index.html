@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Genre Classification</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            color: orange; /* Change text color to orange */
+        }
+
+        #video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        form {
+            text-align: center;
+            z-index: 1;
+        }
+
+        label {
+            color: orange; /* Change text color of label to orange */
+        }
+    </style>
+</head>
+<body>
+    <video id="video-background" autoplay muted loop>
+        <source src="{{ url_for('static', filename='cssvideo.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <h1>Music Genre Classification</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="file">Choose a song file (wav or mp3):</label><br>
+        <input type="file" id="file" name="file" accept=".wav"><br><br>
+        <input type="submit" value="Predict">
+    </form>
+    {% if prediction is defined %}
+    <h2>Prediction: {{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>
